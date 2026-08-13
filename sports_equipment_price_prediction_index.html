@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Equipment Price Prediction | IADS</title>
+<meta name="description" content="IADS Assignment 1 - Sports Equipment Price Prediction using Linear Regression">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--primary:#2563eb;--dark:#172554;--border:#e5e7eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+.hero{background:linear-gradient(135deg,#172554,#2563eb);color:#fff;padding:70px 20px}
+.container{max-width:1050px;margin:auto;padding:0 20px}
+.hero h1{font-size:clamp(2rem,5vw,3.5rem);margin:12px 0}
+.hero p{max-width:780px;color:#dbeafe;font-size:1.1rem}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;background:#dbeafe;color:#1e40af;font-size:.82rem;font-weight:700}
+.hero .badge{background:rgba(255,255,255,.16);color:#fff}
+nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+nav .container{display:flex;gap:18px;overflow-x:auto;padding-top:12px;padding-bottom:12px}
+nav a{color:var(--text);text-decoration:none;font-weight:650;white-space:nowrap}
+nav a:hover{color:var(--primary)}
+main{padding:40px 0 70px}section{margin-bottom:28px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:25px;box-shadow:0 8px 25px rgba(15,23,42,.05)}
+h2{margin-top:0;font-size:1.65rem}h3{margin-top:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+.stat{padding:18px;border:1px solid var(--border);border-radius:12px}.stat strong{display:block}
+.muted{color:var(--muted)}
+pre{background:#111827;color:#e5e7eb;padding:18px;border-radius:12px;overflow:auto}
+code{background:#eef2f7;padding:2px 6px;border-radius:5px}
+.callout{border-left:4px solid #f59e0b;background:#fffbeb;padding:14px 16px;border-radius:8px}
+.metric{font-size:1.5rem;font-weight:800}
+.button{display:inline-block;background:var(--primary);color:#fff;padding:10px 16px;border-radius:9px;text-decoration:none;font-weight:700}
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;color:var(--muted)}
+ul,ol{padding-left:23px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<div class="container">
+<span class="badge">IADS • Assignment 1</span>
+<h1>Sports Equipment Price Prediction</h1>
+<p>
+A machine learning project that uses <strong>Linear Regression</strong> to study and predict
+the production price of sports equipment from measurable production-related factors.
+</p>
+</div>
+</header>
+
+<nav>
+<div class="container">
+<a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#dataset">Dataset</a>
+<a href="#method">Methodology</a><a href="#model">Model</a><a href="#results">Results</a>
+<a href="#visualization">Visualization</a><a href="#structure">Structure</a><a href="#run">Run</a>
+</div>
+</nav>
+
+<main class="container">
+
+<section id="overview">
+<div class="card">
+<h2>Project Overview</h2>
+<p>
+This project addresses the problem of predicting the <strong>production price of sports equipment</strong>.
+The assignment requires a real-world publicly available dataset and a regression model suitable
+for continuous prediction. Linear Regression is used because the target variable is a price.
+</p>
+<div class="grid">
+<div class="stat"><strong>Research Area</strong><span class="muted">Sports equipment manufacturing</span></div>
+<div class="stat"><strong>Prediction Target</strong><span class="muted">Production price</span></div>
+<div class="stat"><strong>Model</strong><span class="muted">Linear Regression</span></div>
+<div class="stat"><strong>Evaluation</strong><span class="muted">R² Score & RMSE</span></div>
+</div>
+</div>
+</section>
+
+<section id="problem">
+<div class="card">
+<h2>1. Research Problem</h2>
+<h3>Research Question</h3>
+<p><strong>Can the production price of sports equipment be predicted using production-related features?</strong></p>
+<p>
+Sports equipment can vary considerably in price depending on factors such as materials,
+manufacturing characteristics, dimensions, production quantity, and labor or processing costs.
+A predictive model can help identify relationships between these factors and production price.
+</p>
+<div class="callout">
+<strong>Objective:</strong> Build and evaluate a Linear Regression model that predicts the
+continuous production price of sports equipment.
+</div>
+</div>
+</section>
+
+<section id="dataset">
+<div class="card">
+<h2>2. Dataset</h2>
+<p>
+The IADS assignment requires a publicly available real-world dataset, such as one obtained
+from Kaggle, the UCI Machine Learning Repository, or Google Dataset Search.
+</p>
+<div class="grid">
+<div class="stat"><strong>Dataset</strong><span class="muted">Sports equipment production/pricing dataset</span></div>
+<div class="stat"><strong>Target</strong><span class="muted">Production Price</span></div>
+<div class="stat"><strong>Feature Type</strong><span class="muted">Numeric and/or categorical production variables</span></div>
+<div class="stat"><strong>Source</strong><span class="muted">Add the exact public dataset URL</span></div>
+</div>
+<p class="callout">
+<strong>Important:</strong> The assignment PDF does not provide a specific dataset.
+The final submission should record the exact dataset name, URL, number of rows/columns,
+and the selected target/features after the dataset is chosen.
+</p>
+</div>
+</section>
+
+<section id="method">
+<div class="card">
+<h2>3. Data Preparation & Methodology</h2>
+<ol>
+<li>Load the sports equipment dataset.</li>
+<li>Inspect columns, data types, missing values, and duplicate records.</li>
+<li>Clean invalid or missing observations where necessary.</li>
+<li>Encode categorical variables if the selected dataset contains them.</li>
+<li>Separate predictor variables from the production-price target.</li>
+<li>Split the data into training and testing sets.</li>
+<li>Train the Linear Regression model using scikit-learn.</li>
+<li>Generate predictions for the test set.</li>
+<li>Calculate R² and RMSE.</li>
+<li>Create and save a meaningful visualization.</li>
+</ol>
+<h3>Technology Stack</h3>
+<span class="badge">Python</span>
+<span class="badge">Pandas</span>
+<span class="badge">NumPy</span>
+<span class="badge">Scikit-learn</span>
+<span class="badge">Matplotlib</span>
+<span class="badge">Jupyter Notebook</span>
+</div>
+</section>
+
+<section id="model">
+<div class="card">
+<h2>4. Linear Regression Model</h2>
+<p>
+Linear Regression estimates the relationship between the production price and the selected
+input features. The trained model is used to predict prices for previously unseen test data.
+</p>
+<pre>from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)</pre>
+<h3>Evaluation Metrics</h3>
+<ul>
+<li><strong>R² Score:</strong> Measures how much of the variation in production price is explained by the model.</li>
+<li><strong>RMSE:</strong> Measures the typical prediction error in the same units as the target price.</li>
+</ul>
+</div>
+</section>
+
+<section id="results">
+<div class="card">
+<h2>5. Results</h2>
+<p>Replace these placeholders with the values produced by the final notebook.</p>
+<div class="grid">
+<div class="stat"><span class="muted">R² Score</span><div class="metric">—</div></div>
+<div class="stat"><span class="muted">RMSE</span><div class="metric">—</div></div>
+<div class="stat"><span class="muted">Training Samples</span><div class="metric">—</div></div>
+<div class="stat"><span class="muted">Testing Samples</span><div class="metric">—</div></div>
+</div>
+<h3>Conclusion</h3>
+<p>
+The final conclusion should state whether the model provides useful predictions,
+which factors appear important, and any limitations identified during the analysis.
+</p>
+</div>
+</section>
+
+<section id="visualization">
+<div class="card">
+<h2>6. Visualization</h2>
+<p>
+The assignment requires at least one meaningful graph. For this project, the recommended
+visualization is an <strong>Actual vs Predicted Production Price</strong> scatter plot,
+optionally with a reference line.
+</p>
+<ul>
+<li><code>images/actual_vs_predicted.png</code></li>
+<li>Optional: residual/error plot</li>
+<li>Optional: feature-vs-price plots</li>
+</ul>
+<img src="images/actual_vs_predicted.png" alt="Actual versus predicted production price"
+style="max-width:100%;border-radius:12px;border:1px solid #e5e7eb"
+onerror="this.style.display='none'">
+</div>
+</section>
+
+<section id="structure">
+<div class="card">
+<h2>7. GitHub Repository Structure</h2>
+<pre>sports-equipment-price-prediction/
+├── index.html
+├── README.md
+├── notebook/
+│   └── sports_equipment_price_prediction.ipynb
+├── src/
+│   └── model.py
+├── data/
+│   └── README.md
+├── images/
+│   └── actual_vs_predicted.png
+├── requirements.txt
+└── .gitignore</pre>
+<p>
+The repository contains the documentation, analysis code, visualization output,
+and supporting project files required for the assignment.
+</p>
+</div>
+</section>
+
+<section id="run">
+<div class="card">
+<h2>8. How to Run the Project</h2>
+<h3>Install dependencies</h3>
+<pre>pip install pandas numpy scikit-learn matplotlib jupyter</pre>
+<h3>Launch Jupyter</h3>
+<pre>jupyter notebook</pre>
+<p>
+Open <code>notebook/sports_equipment_price_prediction.ipynb</code> and run the cells
+in sequence to reproduce preprocessing, model training, evaluation, and visualization.
+</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>9. Assignment Checklist</h2>
+<ul>
+<li>☐ Research problem selected and explained</li>
+<li>☐ Publicly available dataset identified</li>
+<li>☐ Data cleaning and preprocessing completed</li>
+<li>☐ Linear Regression model trained</li>
+<li>☐ R² and RMSE calculated</li>
+<li>☐ At least one meaningful graph generated</li>
+<li>☐ Visualization saved in repository</li>
+<li>☐ README.md included</li>
+<li>☐ Notebook or Python script included</li>
+<li>☐ GitHub repository made publicly accessible</li>
+</ul>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container">Sports Equipment Price Prediction • IADS Assignment 1</div>
+</footer>
+
+</body>
+</html>
